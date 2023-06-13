@@ -24,7 +24,12 @@ const urunToplamFiyatiHesapla=(element)=>{
 }
 
 // Toplam sepet fiyatını hesaplayan fonksiyon
-
+const toplamFiyatiHesapla=()=>{
+    const toplamFiyat=productsPreview.querySelectorAll(".main__product-line-price");
+    const toplamFiyatArr=toplamFiyat.forEach(item=>{item.innerText})
+    console.log(toplamFiyatArr);
+}
+toplamFiyatiHesapla()
 
 
 //*Event Listener
