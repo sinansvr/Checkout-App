@@ -11,6 +11,8 @@ const shippingPrice=25.99;
 
 //* Functions
 
+//Bütün eleanların silinmesi Clear All Button 
+
 //Her bir urunun miktarını ve fiyatını çarparak hesaplayan fonksiyon
 const urunToplamFiyatiHesapla=(element)=>{
     let fiyat=element.closest(".main__product-info").querySelector("strong").textContent;
