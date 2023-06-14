@@ -1,6 +1,8 @@
 //* Selectors
 const productsPreview=document.querySelector("#products-preview")//Urunlerin bulunduğu bolüm seçildi
 
+const navList=document.querySelector(".nav__list")
+
 
 //*Variables
 const taxRate=0.18;
@@ -11,7 +13,7 @@ const shippingPrice=25.99;
 
 //* Functions
 
-//Bütün eleanların silinmesi Clear All Button 
+//Bütün eleanların silen fonksiyon Clear All Button 
 
 //Her bir urunun miktarını ve fiyatını çarparak hesaplayan fonksiyon
 const urunToplamFiyatiHesapla=(element)=>{
@@ -30,10 +32,24 @@ const toplamFiyatiHesapla=()=>{
     const toplamFiyatDivs=productsPreview.querySelectorAll(".main__product-line-price");
     let araToplam=0;
     toplamFiyatDivs.forEach((item)=>{araToplam +=parseFloat(item.innerText)})
-    document.querySelector(".main__sum-price").innerText=araToplam;
+    document.querySelector(".main__sum-price").innerText=(araToplam).toFixed(2);
+
+    
 } 
 
 //*Event Listener
+
+window.addEventListener("load",()=>{
+    toplamFiyatiHesapla();
+})
+
+navList.addEventListener("click",(e)=>{
+    if(e.target.classList.contains("nav__list--btn")){
+        document.querySelector("#myCart").innerText="My Cart"
+        document.querySelector("#product-painel ").innerText="No Product"
+        toplamFiyatiHesapla();       
+    }
+})
 
 
 productsPreview.addEventListener("click",(e)=>{
