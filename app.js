@@ -23,8 +23,7 @@ const urunToplamFiyatiHesapla=(element)=>{
 
     let toplamFiyat= Number(adet)*Number(fiyat);
     
-    element.closest(".main__product-info").querySelector(".main__product-line-price").textContent=(toplamFiyat).toFixed(2);
-    
+    element.closest(".main__product-info").querySelector(".main__product-line-price").textContent=(toplamFiyat).toFixed(2);    
 }
 
 // Toplam sepet fiyatını hesaplayan fonksiyon
@@ -34,17 +33,31 @@ const toplamFiyatiHesapla=()=>{
     toplamFiyatDivs.forEach((item)=>{araToplam +=parseFloat(item.innerText)})
     document.querySelector(".main__sum-price").innerText=(araToplam).toFixed(2);
 
+    //Kargo masrafı hesaplanır
+    if(araToplam >= 3000){
+        document.querySelector("#cart-shipping-amount").innerText = 0;
+    } else {
+        document.querySelector("#cart-shipping-amount").innerText = shippingPrice;
+    } 
+    
+    //vergi hesaplanır
+      document.querySelector("#cart-tax-span").innerText=(araToplam*taxRate).toFixed(2); 
+      
+    //Ödenecek toplam Miktar Hesaplanır
+    document.querySelector("#cart-total-span").innerText="0"
     
 } 
 
 //*Event Listener
 
+//sayfa yüklendiğnde bilgileri güncelleyen event
 window.addEventListener("load",()=>{
     toplamFiyatiHesapla();
 })
 
+//bütün ürünleri silen event
 navList.addEventListener("click",(e)=>{
-    if(e.target.classList.contains("nav__list--btn")){
+    if(e.target.classList.contains("nav__list--btn") || e.target.classList.contains("fa-trash-can")){
         document.querySelector("#myCart").innerText="My Cart"
         document.querySelector("#product-painel ").innerText="No Product"
         toplamFiyatiHesapla();       

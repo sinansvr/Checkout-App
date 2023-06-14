@@ -9,7 +9,7 @@
     background-color: #f5f5f5;
   }
   
-  .header {
+   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,6 +46,15 @@
     font-size: 14px;
     cursor: pointer;
   }
+
+  .nav__list--btn:hover{
+    color: black;
+  }
+
+  .nav__list--btn i:hover{
+    color: black;
+  }
+
   .main {
     width: 100%;
     display: flex;
