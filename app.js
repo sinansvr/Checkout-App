@@ -13,7 +13,7 @@ const shippingPrice=25.99;
 
 //* Functions
 
-//Bütün eleanların silen fonksiyon Clear All Button 
+
 
 //Her bir urunun miktarını ve fiyatını çarparak hesaplayan fonksiyon
 const urunToplamFiyatiHesapla=(element)=>{
@@ -32,20 +32,26 @@ const toplamFiyatiHesapla=()=>{
     let araToplam=0;
     toplamFiyatDivs.forEach((item)=>{araToplam +=parseFloat(item.innerText)})
     document.querySelector(".main__sum-price").innerText=(araToplam).toFixed(2);
-
+    
+    
     //Kargo masrafı hesaplanır
-    if(araToplam >= 3000){
+    let cargoMasrafi=0;
+
+    if(araToplam >= 3000||araToplam==0){
+        
         document.querySelector("#cart-shipping-amount").innerText = 0;
     } else {
+        
         document.querySelector("#cart-shipping-amount").innerText = shippingPrice;
+        cargoMasrafi=shippingPrice;
     } 
     
     //vergi hesaplanır
-      document.querySelector("#cart-tax-span").innerText=(araToplam*taxRate).toFixed(2); 
+      let vergi=(araToplam*taxRate).toFixed(2)
+      document.querySelector("#cart-tax-span").innerText=vergi; 
       
     //Ödenecek toplam Miktar Hesaplanır
-    document.querySelector("#cart-total-span").innerText="0"
-    
+    document.querySelector("#cart-total-span").innerText=`${(Number(vergi)+cargoMasrafi+araToplam).toFixed(2)}`
 } 
 
 //*Event Listener
@@ -73,7 +79,7 @@ productsPreview.addEventListener("click",(e)=>{
         if(miktar>1){
             miktar = Number(miktar)-1           
             e.target.nextElementSibling.textContent=miktar;
-        }else if(confirm("Ürünü tamamen silmek istediğinize emin misiniz?")){
+        }else if(confirm(`${(e.target).closest(".main__product-info").querySelector("h2").innerText} ürününü silmek istediğinize emin misiniz?`)){
             e.target.closest(".main__product").remove();
         }
 
@@ -89,11 +95,13 @@ productsPreview.addEventListener("click",(e)=>{
 
     //?ürünü tamamen kaldıran event
     }else if(e.target.classList.contains("fa-trash-can")){
-        if(confirm("Ürünü tamamen silmek istediğinize emin misiniz?")){
+        if(confirm(`${(e.target).closest(".main__product-info").querySelector("h2").innerText} ürününü silmek istediğinize emin misiniz?`)){
             e.target.closest(".main__product").remove();
         }        
         
     }
+    let urunSayisi=productsPreview.querySelectorAll(".main__product-line-price").length;
+    document.querySelector("#myCart").querySelector("span").innerText=` (${urunSayisi} Product)`
     toplamFiyatiHesapla()
 })
 
