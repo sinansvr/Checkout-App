@@ -25,12 +25,11 @@ const urunToplamFiyatiHesapla=(element)=>{
 
 // Toplam sepet fiyatını hesaplayan fonksiyon
 const toplamFiyatiHesapla=()=>{
-    const toplamFiyat=productsPreview.querySelectorAll(".main__product-line-price");
-    const toplamFiyatArr=toplamFiyat.forEach(item=>{item.innerText})
-    console.log(toplamFiyatArr);
-}
-toplamFiyatiHesapla()
-
+    const toplamFiyatDivs=productsPreview.querySelectorAll(".main__product-line-price");
+    let araToplam=0;
+    toplamFiyatDivs.forEach((item)=>{araToplam +=parseFloat(item.innerText)})
+    document.querySelector(".main__sum-price").innerText=araToplam;
+} 
 
 //*Event Listener
 
@@ -64,6 +63,7 @@ productsPreview.addEventListener("click",(e)=>{
         }        
         
     }
+    toplamFiyatiHesapla()
 })
 
 
